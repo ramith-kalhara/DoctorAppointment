@@ -15,7 +15,10 @@ public class AppointmentDto {
     private String date;
     private String time;
     private String description;
+
+
     private Long userId;
+
 
     // Method to convert DTO to Entity
     public Appointment toEntity(ModelMapper modelMapper) {

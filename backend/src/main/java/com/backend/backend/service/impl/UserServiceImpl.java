@@ -4,6 +4,7 @@ package com.backend.backend.service.impl;
 import com.backend.backend.dto.LoginRequestDto;
 import com.backend.backend.dto.LoginResponseDto;
 import com.backend.backend.dto.UserDto;
+import com.backend.backend.entity.Appointment;
 import com.backend.backend.entity.User;
 import com.backend.backend.exception.NotFoundException;
 import com.backend.backend.repository.UserRepository;
@@ -11,6 +12,7 @@ import com.backend.backend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +34,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto postUser(UserDto userDto) {
         User user = userDto.toEntity(modelMapper);
+        // Set user reference for each appointment
+        if (user.getAppointments() != null) {
+            for (Appointment appointment : user.getAppointments()) {
+                appointment.setUser(user); // important to set the owner
+            }
+        }
         User saveduser =  userRepository.save(user);
         return saveduser.toDto(modelMapper);
     }
 
     //get user by id
+    @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(long id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return user.get().toDto(modelMapper);
-        }else{
-            throw new NotFoundException("User not found");
-        }
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+        user.getAppointments().size(); // force loading if lazy
+        return user.toDto(modelMapper);
     }
+
 
 
     @Override

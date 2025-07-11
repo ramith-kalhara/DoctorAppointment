@@ -3,6 +3,7 @@ package com.backend.backend.service.impl;
 
 import com.backend.backend.dto.AppointmentDto;
 import com.backend.backend.entity.Appointment;
+import com.backend.backend.entity.User;
 import com.backend.backend.exception.NotFoundException;
 import com.backend.backend.repository.AppointmentRepository;
 import com.backend.backend.repository.UserRepository;
@@ -20,11 +21,14 @@ import java.util.stream.Collectors;
 public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
+
     private final ModelMapper modelMapper;
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.appointmentRepository = appointmentRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -32,6 +36,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDto postAppointment(AppointmentDto appointmentDto) {
         Appointment appointment = appointmentDto.toEntity(modelMapper);
+
+        if (appointmentDto.getUserId() != null) {
+            User user = userRepository.findById(appointmentDto.getUserId())
+                    .orElseThrow(() -> new NotFoundException("User not found with ID: " + appointmentDto.getUserId()));
+            appointment.setUser(user);
+        } else {
+            throw new IllegalArgumentException("User ID must be provided in AppointmentDto");
+        }
+
         Appointment savedAppointment=  appointmentRepository.save(appointment);
         return savedAppointment.toDto(modelMapper);
     }
@@ -53,6 +66,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentDto updateAppointment(Long id, AppointmentDto appointmentDto) {
         Appointment appointment = appointmentDto.toEntity(modelMapper);
         appointment.setId(id);
+
+        if (appointmentDto.getUserId() != null) {
+            User user = userRepository.findById(appointmentDto.getUserId())
+                    .orElseThrow(() -> new NotFoundException("User not found with ID: " + appointmentDto.getUserId()));
+            appointment.setUser(user);
+        } else {
+            throw new IllegalArgumentException("User ID must be provided in AppointmentDto");
+        }
+
+
         Appointment savedAppointment = appointmentRepository.save(appointment);
         return savedAppointment.toDto(modelMapper);
     }

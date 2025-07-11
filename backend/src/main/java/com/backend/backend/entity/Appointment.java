@@ -1,10 +1,9 @@
 package com.backend.backend.entity;
 
 import com.backend.backend.dto.AppointmentDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,13 +27,21 @@ public class Appointment {
     private String date;
     private String time;
     private String description;
-    private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "user_id")
+    @JsonBackReference
+    private User user;
 
 
 
 
     public AppointmentDto toDto(ModelMapper mapper) {
         AppointmentDto appointmentDto = mapper.map(this, AppointmentDto.class);
+        if (this.user != null) {
+            appointmentDto.setUserId(this.user.getId());
+        }
+
         return appointmentDto;
     }
 }
