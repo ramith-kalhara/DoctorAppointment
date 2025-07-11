@@ -11,27 +11,22 @@ import Service from '../../components/Service';
 import Feature from '../../components/Feature';
 import Team from '../../components/Team';
 import Testimonial from '../../components/Testimonial';
-// import Appointment from '../../component/Appointment';
-// import About from '../../component/About';
-// import Service from '../../component/Service';
-// import Feature from '../../component/Feature';
-// import Team from '../../component/Team';
-// import Testimonial from '../../component/Testimonial';
+
 const Home = () => {
   useEffect(() => {
-    // Ensure the DOM is fully loaded before initializing Owl Carousel
+ 
     const initializeOwlCarousel = () => {
       if ($('.owl-carousel').length > 0) {
-        $('.owl-carousel').owlCarousel('destroy'); // Destroy existing instances to avoid duplication
+        $('.owl-carousel').owlCarousel('destroy'); 
         $('.owl-carousel').owlCarousel({
-          items: 1, // Number of items per slide
+          items: 1, 
           loop: true,
           autoplay: true,
           autoplayTimeout: 3000,
           autoplayHoverPause: true,
-          nav: true,  // Enable navigation arrows
-          dots: true,  // Enable dots for navigation
-          navText: ['<', '>'], // Customize navigation buttons
+          nav: true,  
+          dots: true,  
+          navText: ['<', '>'], 
         });
       }
     };

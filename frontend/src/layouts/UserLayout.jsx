@@ -2,16 +2,18 @@ import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import BackToTop from '../components/BackToTop'
-
-function UserLayout({children}) {
+import { Outlet } from 'react-router-dom';
+function UserLayout() {
   return (
     <>
-        <Header/>
-        <main>{children}</main>
-        <Footer/>
-        <BackToTop/>
+      <Header />
+      <main>
+        <Outlet /> 
+      </main>
+      <Footer />
+      <BackToTop />
     </>
-  )
+  );
 }
 
-export default UserLayout
+export default UserLayout;
