@@ -122,8 +122,6 @@ public class UserServiceImpl implements UserService {
         response.setRole(role);
 
         return response;
-
-
     }
 
 
