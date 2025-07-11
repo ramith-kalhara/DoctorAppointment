@@ -13,4 +13,5 @@ public class LoginResponseDto {
     private String email;
     private String password;
     private String role;
+    private String token;
 }

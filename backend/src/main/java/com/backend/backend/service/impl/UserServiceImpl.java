@@ -1,6 +1,7 @@
 package com.backend.backend.service.impl;
 
 
+import com.backend.backend.config.JwtUtil;
 import com.backend.backend.dto.LoginRequestDto;
 import com.backend.backend.dto.LoginResponseDto;
 import com.backend.backend.dto.UserDto;
@@ -22,6 +23,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     // Constructor Injection
     @Autowired
@@ -115,11 +118,14 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Wrong role");
         }
 
+        String token = jwtUtil.generateToken(user.getEmail());
+
         LoginResponseDto response = new LoginResponseDto();
         response.setMassage("Login successful");
         response.setUserId(user.getId());
         response.setEmail(user.getEmail());
         response.setRole(role);
+        response.setToken(token);
 
         return response;
     }
