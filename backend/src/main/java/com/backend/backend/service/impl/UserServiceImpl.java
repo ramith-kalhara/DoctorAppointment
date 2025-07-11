@@ -40,6 +40,13 @@ public class UserServiceImpl implements UserService {
                 appointment.setUser(user); // important to set the owner
             }
         }
+
+        Optional<User> existingUser = userRepository.findByEmail(userDto.getEmail());
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("Email is already in use");
+        }
+
+
         User saveduser =  userRepository.save(user);
         return saveduser.toDto(modelMapper);
     }
