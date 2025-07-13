@@ -133,6 +133,7 @@ const LoginSignup_Page = () => {
       userId: data.userId,
       email: data.email,
       role: data.role,
+      token: data.token,
     }));
 
     Swal.fire({

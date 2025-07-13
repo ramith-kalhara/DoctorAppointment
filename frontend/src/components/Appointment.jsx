@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import teamData from "../data/teamData";
 import Swal from "sweetalert2";
 import SubmitAppointmentbtn from './SubmitAppointmentbtn';
+import axiosInstance from '../utils/axiosInstance';
 const Appointment = () => {
   const [userId, setUserId] = useState(null);
   const [name, setName] = useState('');
@@ -25,14 +26,15 @@ const Appointment = () => {
 
   useEffect(() => {
     
-    const userId = localStorage.getItem('userId');
-    
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user?.userId;
+
     if (userId) {
       setUserId(userId);
       
       
       // autofill name and email
-      axios.get(`http://localhost:8086/api/user/${userId}`)
+      axiosInstance.get(`/user/${userId}`)
         .then(response => {
           const userData = response.data;
           setName(userData.name);
