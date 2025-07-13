@@ -63,6 +63,15 @@ const pageHeaderData = [
       ],
       activeBreadcrumb: 'Your Appointment ',
     },
+    {
+      page: 'updateAppointment',
+      title: 'Update Appointment ',
+      breadcrumbItems: [
+        { name: 'Home', href: '/' },
+        { name: 'Pages', href: '#' },
+      ],
+      activeBreadcrumb: 'Update Appointment ',
+    },
    
   ];
   

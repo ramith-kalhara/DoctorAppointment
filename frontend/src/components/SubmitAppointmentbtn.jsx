@@ -1,6 +1,6 @@
-import React from 'react'
 
-const SubmitAppointmentbtn  = ({ handleSubmit, handleViewAppointment ,isUpdate }) =>{
+
+const SubmitAppointmentbtn  = ({ handleSubmit, handleViewAppointment  }) =>{
   return (
     <div>
         <div className="col-12 mb-2">

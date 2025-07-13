@@ -3,12 +3,15 @@ package com.backend.backend.controller;
 import com.backend.backend.dto.LoginRequestDto;
 import com.backend.backend.dto.LoginResponseDto;
 import com.backend.backend.dto.UserDto;
+import com.backend.backend.entity.User;
+import com.backend.backend.exception.NotFoundException;
 import com.backend.backend.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -54,5 +57,8 @@ public class UserController {
     public ResponseEntity<Boolean> deleteUser(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.deleteUser(id));
     }
+
+  
+
 
 }

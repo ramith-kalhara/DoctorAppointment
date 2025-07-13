@@ -14,6 +14,7 @@ public class UserDto {
     private String name;
     private String email;
     private String password;
+    private String role;
 
     // Add this
     private List<AppointmentDto> appointments = new ArrayList<>();

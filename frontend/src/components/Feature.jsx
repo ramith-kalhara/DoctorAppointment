@@ -1,6 +1,5 @@
 import 'owl.carousel/dist/assets/owl.carousel.css'; 
 import 'owl.carousel';  
-import React from 'react'
 import feature from '../assets/img/feature.jpg';
 const Feature = () => {
   return (

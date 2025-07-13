@@ -10,7 +10,7 @@ public class AppointmentDto {
 
     private String name;
     private String email;
-    private int tp_num;
+    private String tp_num;
     private String doctor_name;
     private String date;
     private String time;

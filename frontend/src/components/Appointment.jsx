@@ -1,7 +1,7 @@
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import  { useState, useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import teamData from "../data/teamData";
 import Swal from "sweetalert2";

@@ -9,6 +9,7 @@ import Appointment_Page from '../pages/user/Appointment_Page';
 import AppointmentDetails_Page from '../pages/user/AppointmentDetails_Page';
 import LoginSignup_Page from '../pages/user/LoginSignup_Page';
 import ProtectedRoute from './ProtectedRoute';
+import UpdateAppointment_Page from '../pages/user/UpdateAppointment_Page';
 
 
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/contact" element={<Contact_Page />} />
         <Route path="/appointment" element={<Appointment_Page />} />
         <Route path="/appointmentDetails" element={<AppointmentDetails_Page />} />
+          <Route path="/updateAppointment/:appointmentId" element={<UpdateAppointment_Page />} />
       </Route>
 
   

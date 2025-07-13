@@ -1,5 +1,4 @@
-import React from 'react'
-import AppointmentTable from '../../components/AppointmentsTable'
+
 import pageHeaderData from '../../data/pageHeaderData'
 import PageHeader from '../../components/PageHeader'
 
@@ -33,7 +32,6 @@ const AppointmentDetails_Page = () => {
         .get(`appointment/user/${userId}`) 
         .then((response) => {
           setAppointments(response.data);
-          console.log("appointment : ", response)
         })
         .catch((error) => console.error("Error fetching appointments:", error));
     }
@@ -61,7 +59,7 @@ const AppointmentDetails_Page = () => {
        <table className={styles.table}>
           <thead className={styles["thead-primary"]}>
             <tr>
-              <th>Id</th>
+             
               <th>Date</th>
               <th>Description</th>
               <th>Doctor Name</th>
@@ -75,7 +73,7 @@ const AppointmentDetails_Page = () => {
           <tbody>
             {appointments.map((appointment) => (
               <tr key={appointment.id}>
-                <td>{appointment.id}</td>
+                
                 <td>{appointment.date}</td>
                 <td>{appointment.description}</td>
                 <td>{appointment.doctor_name}</td>
