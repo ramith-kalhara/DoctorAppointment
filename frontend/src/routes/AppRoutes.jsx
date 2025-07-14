@@ -10,6 +10,7 @@ import AppointmentDetails_Page from '../pages/user/AppointmentDetails_Page';
 import LoginSignup_Page from '../pages/user/LoginSignup_Page';
 import ProtectedRoute from './ProtectedRoute';
 import UpdateAppointment_Page from '../pages/user/UpdateAppointment_Page';
+import OtpVerification from '../auth/OtpVerification';
 
 
 
@@ -19,6 +20,7 @@ const AppRoutes = () => {
     <Routes>
       {/* public path  */}
       <Route path="/" element={<LoginSignup_Page />} />
+          <Route path="/otp-verification" element={<OtpVerification />} />
 
       {/* peotected path  */}
       <Route element={<ProtectedRoute><UserLayout /></ProtectedRoute>}>
@@ -28,10 +30,12 @@ const AppRoutes = () => {
         <Route path="/contact" element={<Contact_Page />} />
         <Route path="/appointment" element={<Appointment_Page />} />
         <Route path="/appointmentDetails" element={<AppointmentDetails_Page />} />
-          <Route path="/updateAppointment/:appointmentId" element={<UpdateAppointment_Page />} />
+        <Route path="/updateAppointment/:appointmentId" element={<UpdateAppointment_Page />} />
+    
+
       </Route>
 
-  
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

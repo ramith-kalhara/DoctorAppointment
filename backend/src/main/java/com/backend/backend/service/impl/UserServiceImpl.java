@@ -6,8 +6,10 @@ import com.backend.backend.dto.LoginRequestDto;
 import com.backend.backend.dto.LoginResponseDto;
 import com.backend.backend.dto.UserDto;
 import com.backend.backend.entity.Appointment;
+import com.backend.backend.entity.Otp;
 import com.backend.backend.entity.User;
 import com.backend.backend.exception.NotFoundException;
+import com.backend.backend.repository.OtpRepository;
 import com.backend.backend.repository.UserRepository;
 import com.backend.backend.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,22 +17,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final OtpRepository otpRepository;
+    private final EmailService emailService;
     @Autowired
     private JwtUtil jwtUtil;
 
     // Constructor Injection
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, OtpRepository otpRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.otpRepository = otpRepository;
+        this.emailService = emailService;
     }
 
     //create user
@@ -93,39 +101,32 @@ public class UserServiceImpl implements UserService {
     //check login
     // Authenticate user by email and password
     @Override
+    @Transactional
     public LoginResponseDto authenticateUser(LoginRequestDto loginRequestDto) {
-
-        //find user by email
         User user = userRepository.findByEmail(loginRequestDto.getEmail())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        //check password is wrong
-        if(!user.getPassword().equals(loginRequestDto.getPassword())) {
+        if (!user.getPassword().equals(loginRequestDto.getPassword())) {
             throw new RuntimeException("Wrong password");
         }
 
-        //check role is empty( user) or ADMIN
-        String role = loginRequestDto.getRole();
-        if (role == null || role.isEmpty()) {
-            role = "USER";
-        }
+        // Generate OTP
+        String otp = String.valueOf(new Random().nextInt(999999 - 100000) + 100000);
 
-        if ("ADMIN".equalsIgnoreCase(role)) {
+        // Save or update OTP
+        otpRepository.deleteByEmail(user.getEmail());
+        Otp otpEntity = new Otp();
+        otpEntity.setEmail(user.getEmail());
+        otpEntity.setOtpCode(otp);
+        otpEntity.setExpiryTime(LocalDateTime.now().plusMinutes(5));
+        otpRepository.save(otpEntity);
 
-        }else if ("USER".equalsIgnoreCase(role)) {
-
-        }else {
-            throw new RuntimeException("Wrong role");
-        }
-
-        String token = jwtUtil.generateToken(user.getEmail());
+        // Send Email
+        emailService.sendOtpEmail(user.getEmail(), otp);
 
         LoginResponseDto response = new LoginResponseDto();
-        response.setMassage("Login successful");
-        response.setUserId(user.getId());
+        response.setMassage("OTP sent to email");
         response.setEmail(user.getEmail());
-        response.setRole(role);
-        response.setToken(token);
 
         return response;
     }

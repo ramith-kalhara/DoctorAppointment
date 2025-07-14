@@ -39,8 +39,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/api/user/login", "/api/user/create").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/likes/like").authenticated()
+                        .requestMatchers( "/api/user/login", "/api/user/create", "/api/user/verify-otp").permitAll()
+
 
                         .anyRequest().authenticated()
                 );

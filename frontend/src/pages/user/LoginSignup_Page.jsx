@@ -96,7 +96,7 @@ const LoginSignup_Page = () => {
   }
 };
 
- const handleLogin = async (e) => {
+const handleLogin = async (e) => {
   e.preventDefault();
 
   if (!email || !password) {
@@ -123,27 +123,16 @@ const LoginSignup_Page = () => {
       Swal.fire({
         icon: "error",
         title: "Login Failed",
-        text: data.message || "Invalid credentials.",
+        text: data.massage || "Invalid credentials.",
       });
       return;
     }
 
-    // Save to localStorage
-    localStorage.setItem("user", JSON.stringify({
-      userId: data.userId,
-      email: data.email,
-      role: data.role,
-      token: data.token,
-    }));
-
-    Swal.fire({
-      icon: "success",
-      title: "Login Successful",
-      text: `Welcome, ${data.email}!`,
-    });
-
-    // Redirect to dashboard or home
-    navigate("/home"); // Change to your desired route
+    if (data.massage === "OTP sent to email") {
+      Swal.fire("Check Your Email", "OTP has been sent", "info");
+      navigate("/otp-verification", { state: { email: email } });
+      console.log("Navigation called");
+    }
 
   } catch (error) {
     Swal.fire({
@@ -153,8 +142,6 @@ const LoginSignup_Page = () => {
     });
   }
 };
-
-  
 
   return (
     <div>
