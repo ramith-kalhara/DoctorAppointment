@@ -54,7 +54,7 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto p-4 p-lg-0">
-            <Link to="/" className="nav-item nav-link active">Home</Link>
+            <Link to="/home" className="nav-item nav-link active">Home</Link>
             <Link to="/about" className="nav-item nav-link">About</Link>
             <Link to="/appointment" className="nav-item nav-link">Appointment</Link>
             <Link to="/team" className="nav-item nav-link">Our Doctor</Link>
