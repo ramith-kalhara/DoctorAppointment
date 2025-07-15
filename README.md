@@ -53,16 +53,28 @@ Make sure you have the following installed on your system:
 
 
 2. **Configure MySQL Database**
-spring.datasource.username=your_mysql_username
-spring.datasource.password=your_mysql_password
+    ```bash
+    spring.datasource.username=your_mysql_username
+    spring.datasource.password=your_mysql_password
 
-3. **Run the Backend**
+4. **Run the Backend**
    Open the project in IntelliJ IDEA, let it load Maven dependencies, and simply click Run to start the backend server.
 
 
 ## 🖥️ Frontend Setup (React)
 1. **Navigate to the frontend folder**
-2. **Install dependencies**
+   ```bash
+   cd DoctorAppointment\frontend
+   
+3. **Install dependencies**
+     ```bash
      npm install
-3. **Start the React app**
+4. **Start the React app**
+   ```bash
+   npm run dev
+  
+**The app should open at:** [`http://localhost:5173`](http://localhost:5173)
+
+
+
 
