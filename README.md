@@ -17,6 +17,9 @@ This is a full-stack web application built using **Spring Boot** (Java 17) for t
   - Update and delete appointments
 - 🧭 Navigation via a responsive navbar
 - 📄 Additional pages for more information
+- 🔎 Search appointments by doctor name using the search bar on the Appointment view page
+- 🔍 Search doctors by their department on the Doctor page  
+
 
 ---
 
