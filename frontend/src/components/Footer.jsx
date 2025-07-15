@@ -1,7 +1,6 @@
 import 'owl.carousel/dist/assets/owl.carousel.css'; 
 import 'owl.carousel';  
-import React from 'react'
-
+import { Link} from "react-router-dom";
 function Footer() {
   return (
     <div>
@@ -31,32 +30,25 @@ function Footer() {
           </div>
           <div className="col-lg-3 col-md-6">
             <h5 className="text-light mb-4">Quick Links</h5>
-            <a className="btn btn-link" href="#">About Us</a>
-            <a className="btn btn-link" href="#">Contact Us</a>
-            <a className="btn btn-link" href="#">Our Services</a>
-            <a className="btn btn-link" href="#">Terms &amp; Condition</a>
-            <a className="btn btn-link" href="#">Support</a>
+                   <Link to="/home" className="btn btn-link">Home</Link>
+            <Link to="/about" className="btn btn-link">About</Link>
+            <Link to="/appointment" className="btn btn-link">Appointment</Link>
+            <Link to="/team" className="btn btn-link">Our Doctor</Link>
+
+            <Link to="/contact" className="btn btn-link">Contact</Link>
           </div>
           <div className="col-lg-3 col-md-6">
             <h5 className="text-light mb-4">Newsletter</h5>
             <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-            <div className="position-relative mx-auto" style={{maxWidth: '400px'}}>
-              <input className="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" />
-              <button type="button" className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-            </div>
+           
           </div>
         </div>
       </div>
       <div className="container">
         <div className="copyright">
           <div className="row">
-            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              © <a className="border-bottom" href="#">OnlineBooking.com</a>, All Right Reserved.
-            </div>
-            <div className="col-md-6 text-center text-md-end">
-              {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-              Designed By <a className="border-bottom" target='_blank' href="https://github.com/ramith-kalhara">P.D.R.Kalhara</a>
-            </div>
+         
+          
           </div>
         </div>
       </div>

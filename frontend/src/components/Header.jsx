@@ -58,29 +58,28 @@ const Header = () => {
             <Link to="/about" className="nav-item nav-link">About</Link>
             <Link to="/appointment" className="nav-item nav-link">Appointment</Link>
             <Link to="/team" className="nav-item nav-link">Our Doctor</Link>
-
             <Link to="/contact" className="nav-item nav-link">Contact</Link>
 
           </div>
           <Link to="/appointment" className="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
             Appointment <i className="fa fa-arrow-right ms-3" />
           </Link>
-        <button
-  onClick={handleLogout}
-  className="nav-item nav-link active"
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-    border: "none",
-    background: "none",
-    color: "blue",
-    cursor: "pointer",
-  }}
->
-  <FiLogOut size={20} />
+          <button
+            onClick={handleLogout}
+            className="nav-item nav-link active"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              border: "none",
+              background: "none",
+              color: "blue",
+              cursor: "pointer",
+            }}
+          >
+            <FiLogOut size={20} />
 
-</button>
+          </button>
 
 
         </div>

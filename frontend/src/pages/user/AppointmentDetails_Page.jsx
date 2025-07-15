@@ -13,6 +13,7 @@ const AppointmentDetails_Page = () => {
     const [appointments, setAppointments] = useState([]);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     // Get user ID from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
@@ -49,6 +50,11 @@ const AppointmentDetails_Page = () => {
     navigate(`/updateAppointment/${appointmentId}`);
   };
 
+  // Filter appointments based on doctor name (case-insensitive)
+  const filteredAppointments = appointments.filter((appointment) =>
+    appointment.doctor_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
        <PageHeader
@@ -56,6 +62,16 @@ const AppointmentDetails_Page = () => {
                       breadcrumbItems={pageData.breadcrumbItems}
                       activeBreadcrumb={pageData.activeBreadcrumb}
               />
+
+               <div className="container my-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Doctor Name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
        <table className={styles.table}>
           <thead className={styles["thead-primary"]}>
             <tr>
@@ -70,28 +86,32 @@ const AppointmentDetails_Page = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            {appointments.map((appointment) => (
-              <tr key={appointment.id}>
-                
-                <td>{appointment.date}</td>
-                <td>{appointment.description}</td>
-                <td>{appointment.doctor_name}</td>
-                <td>{appointment.email}</td>
-                <td>{appointment.time}</td>
-                <td>{appointment.tp_num}</td>
-                <td>{appointment.name}</td>
-                <td>
-                  <button onClick={() => handleDelete(appointment.id)} className={styles["btn-primary"]}>
-                    Delete
-                  </button>
-                  <button onClick={() => handleUpdateClick(appointment.id)} className={styles["btn-primary"]}>
-                    Update
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+         <tbody>
+          {filteredAppointments.map((appointment) => (
+            <tr key={appointment.id}>
+              <td>{appointment.date}</td>
+              <td>{appointment.description}</td>
+              <td>{appointment.doctor_name}</td>
+              <td>{appointment.email}</td>
+              <td>{appointment.time}</td>
+              <td>{appointment.tp_num}</td>
+              <td>{appointment.name}</td>
+              <td>
+                <button onClick={() => handleDelete(appointment.id)} className={styles["btn-primary"]}>
+                  Delete
+                </button>
+                <button onClick={() => handleUpdateClick(appointment.id)} className={styles["btn-primary"]}>
+                  Update
+                </button>
+              </td>
+            </tr>
+          ))}
+          {filteredAppointments.length === 0 && (
+            <tr>
+              <td colSpan="8" className="text-center py-3">No appointments found for this doctor.</td>
+            </tr>
+          )}
+        </tbody>
         </table>
     </div>
   )
