@@ -56,6 +56,7 @@ const LoginSignup_Page = () => {
     return;
   }
 
+
   try {
     const response = await fetch("http://localhost:8086/api/user/create", {
       method: "POST",
@@ -68,13 +69,14 @@ const LoginSignup_Page = () => {
         password
       })
     });
+    const data = await response.json();  
 
-    if (!response.ok) {
-      const errorData = await response.json();
+
+ if (!response.ok) {
       Swal.fire({
         icon: "error",
         title: "Registration Failed",
-        text: errorData.message || "Something went wrong.",
+        text: data.message || "Something went wrong.",
       });
       return;
     }
@@ -85,8 +87,8 @@ const LoginSignup_Page = () => {
       text: "You have been registered successfully!",
     });
 
-    // Optionally redirect to login
     navigate("/login");
+
   } catch (error) {
     Swal.fire({
       icon: "error",
