@@ -83,7 +83,7 @@ const LoginSignup_Page = () => {
 
 
     try {
-      const response = await fetch("http://localhost:8086/api/user/create", {
+      const response = await fetch("http://161.97.80.240:8086/api/user/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -138,7 +138,7 @@ const LoginSignup_Page = () => {
 
 
     try {
-      const response = await fetch("http://localhost:8086/api/user/login", {
+      const response = await fetch("http://161.97.80.240:8086/api/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
