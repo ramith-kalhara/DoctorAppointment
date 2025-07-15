@@ -14,6 +14,7 @@ import com.backend.backend.repository.UserRepository;
 import com.backend.backend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,22 +30,28 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final OtpRepository otpRepository;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
     private JwtUtil jwtUtil;
 
     // Constructor Injection
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, OtpRepository otpRepository, EmailService emailService) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, OtpRepository otpRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.otpRepository = otpRepository;
         this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //create user
     @Override
     public UserDto postUser(UserDto userDto) {
         User user = userDto.toEntity(modelMapper);
+
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
         // Set user reference for each appointment
         if (user.getAppointments() != null) {
             for (Appointment appointment : user.getAppointments()) {
@@ -106,9 +113,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(loginRequestDto.getEmail())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (!user.getPassword().equals(loginRequestDto.getPassword())) {
+        // Check hashed password
+        if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Wrong password");
         }
+
 
         // Generate OTP
         String otp = String.valueOf(new Random().nextInt(999999 - 100000) + 100000);
