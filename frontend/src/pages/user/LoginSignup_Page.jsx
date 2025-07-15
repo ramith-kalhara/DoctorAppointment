@@ -41,7 +41,7 @@ const LoginSignup_Page = () => {
         icon: "error",
         title: "Invalid Name",
         text: "Name can only contain letters, spaces, and dots.",
-      });
+      }); 
       return;
     }
 
