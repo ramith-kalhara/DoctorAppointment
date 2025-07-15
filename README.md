@@ -12,11 +12,11 @@ This is a full-stack web application built using **Spring Boot** (Java 17) for t
 - 🔐 Secure Login with Email + Password
 - 🔁 **Two-Factor Authentication (2FA)** via Email OTP
 - 📅 Appointment Management:
-  - Create appointment
+  - Create appointment ( defferent doctor have defferent time slot ) 
   - View appointments
   - Update and delete appointments
 - 🧭 Navigation via a responsive navbar
-- 📄 Additional pages for more user details and information
+- 📄 Additional pages for more information
 
 ---
 
