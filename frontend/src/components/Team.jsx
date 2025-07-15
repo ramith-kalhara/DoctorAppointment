@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import teamData from '../data/teamData';
 
-const Team = ({ limit }) => {
+const Team = ({ limit, initialSearch  }) => {
   const [searchTerm, setSearchTerm] = useState('');
+
+    // If initialSearch is passed (like 'Cardiology'), set it as the default search term
+  useEffect(() => {
+    if (initialSearch) {
+      setSearchTerm(initialSearch);
+    }
+  }, [initialSearch]);
+
 
   const filteredDoctors = teamData
     .filter((doctor) =>
