@@ -23,6 +23,10 @@ This is a full-stack web application built using **Spring Boot** (Java 17) for t
 
 ---
 
+### 🌍 Live Demo  
+Access the deployed version here: [http://161.97.80.240/](http://161.97.80.240/)
+
+
 ## ⚙️ Tech Stack
 
 | Layer        | Technology              |
@@ -78,8 +82,7 @@ Make sure you have the following installed on your system:
   
 **The app should open at:** [`http://localhost:5173`](http://localhost:5173)
 
-### 🌍 Live Demo  
-Access the deployed version here: [http://161.97.80.240/](http://161.97.80.240/)
+
 
 
 
