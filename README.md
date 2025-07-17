@@ -78,6 +78,10 @@ Make sure you have the following installed on your system:
   
 **The app should open at:** [`http://localhost:5173`](http://localhost:5173)
 
+### 🌍 Live Demo  
+Access the deployed version here: [http://161.97.80.240/](http://161.97.80.240/)
+
+
 
 
 
