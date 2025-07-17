@@ -26,6 +26,7 @@ This is a full-stack web application built using **Spring Boot** (Java 17) for t
 ### 🌍 Live Demo  
 Access the deployed version here: [http://161.97.80.240/](http://161.97.80.240/)
 
+---
 
 
 ## ⚙️ Tech Stack
